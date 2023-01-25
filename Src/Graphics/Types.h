@@ -10,6 +10,18 @@ namespace Graphics
 		size_t Y;
 	};
 
+	struct Vector2i
+	{
+		int X;
+		int Y;
+	};
+
+	struct Vector2f
+	{
+		float X;
+		float Y;
+	};
+
 	struct Rectangle
 	{
 		size_t X;

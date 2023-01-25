@@ -71,7 +71,7 @@ void Win32Host::Dispatch()
 	}
 }
 
-void Win32Host::GetInput(DPad& dpad)
+void Win32Host::GetInput(UI::DPad& dpad)
 {
 	const SHORT pressed = (1 << 15);
 	dpad.LeftPressed = GetKeyState(VK_LEFT) & pressed;
