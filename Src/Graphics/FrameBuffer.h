@@ -24,7 +24,8 @@ namespace Graphics
 
 		void FillScreen(const Color color)
 		{
-			this->DrawRectangle(color, {0, 0, GetWidth(), GetHeight()});
+			//this->DrawRectangle(color, {0, 0, GetWidth(), GetHeight()});
+			SetPixels(GetBuffer(), color, GetWidth() * GetHeight());
 		}
 
 		void DrawVerticalLine(const Color color, const size_t x, const size_t y1, const size_t y2)

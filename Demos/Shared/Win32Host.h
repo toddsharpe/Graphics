@@ -1,16 +1,9 @@
 #pragma once
 
 #include "Graphics/FrameBuffer.h"
+#include "UI/Types.h"
 
 #include <Windows.h>
-
-struct DPad
-{
-	bool UpPressed;
-	bool DownPressed;
-	bool LeftPressed;
-	bool RightPressed;
-};
 
 class Win32Host
 {
@@ -23,7 +16,7 @@ public:
 
 	void Start();
 	void Dispatch();
-	void GetInput(DPad& dpad);
+	void GetInput(UI::DPad& dpad);
 	void DisplayBuffer();
 	bool IsRunning();
 

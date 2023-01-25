@@ -57,64 +57,25 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	host.Init(hInstance, Win32MainWindowCallback);
 
 	//Raycaster
-	Graphics::Raycaster<24, 24> raycaster(frameBuffer);
-	float posX = 22, posY = 12;  //x and y start position
-	float dirX = -1, dirY = 0; //initial direction vector
-	float planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
+	Graphics::Raycaster<24, 24> raycaster(worldMap);
 
-	float moveSpeed = 5.0 / 30.0;
-	float rotSpeed = 3.0 / 30.0;
-
-	DPad dpad = {};
+	UI::DPad dpad = {};
 
 	//Run host
 	host.Start();
+	int FPS = 60;
 	while (host.IsRunning())
 	{
 		//Dispatch host
 		host.Dispatch();
 		host.GetInput(dpad);
-
-		if (dpad.UpPressed)
-		{
-			if (worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
-			if (worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
-		}
-		//move backwards if no wall behind you
-		if (dpad.DownPressed)
-		{
-			if (worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-			if (worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
-		}
-		//rotate to the right
-		if (dpad.RightPressed)
-		{
-			//both camera direction and camera plane must be rotated
-			float oldDirX = dirX;
-			dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-			dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-			float oldPlaneX = planeX;
-			planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-			planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
-		}
-		//rotate to the left
-		if (dpad.LeftPressed)
-		{
-			//both camera direction and camera plane must be rotated
-			float oldDirX = dirX;
-			dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-			dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-			float oldPlaneX = planeX;
-			planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-			planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
-		}
-
+		raycaster.Update(dpad, 1000 / FPS);
 
 		//Draw
-		raycaster.Render(worldMap, posX, posY, dirX, dirY, planeX, planeY);
+		raycaster.Render(frameBuffer, 1000 / FPS);
 		host.DisplayBuffer();
 
-		Sleep(1000.0 / 30);
+		Sleep(1000 / FPS);
 	}
 }
 
