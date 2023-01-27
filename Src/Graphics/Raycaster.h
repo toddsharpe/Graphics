@@ -6,6 +6,7 @@
 #include "UI/Types.h"
 
 #include <cstddef>
+#include <cmath>
 
 //https://lodev.org/cgtutor/raycasting.html
 
@@ -15,11 +16,11 @@ namespace Graphics
 	class Raycaster
 	{
 	public:
-		Raycaster(const int(&worldMap)[Width][Height]) : 
+		Raycaster(const int(&worldMap)[Width][Height]) :
 			m_worldMap(worldMap),
-			m_pos({22, 12}),
+			m_pos({ 22, 12 }),
 			m_dir({ -1, 0 }),
-			m_plane({0, 0.66})
+			m_plane({ 0, 0.66 })
 		{
 
 		}
@@ -77,7 +78,7 @@ namespace Graphics
 		{
 			//Clear frame
 			frame.FillScreen(Colors::Black);
-			
+
 			//Scan left to right
 			for (size_t x = 0; x < frame.GetWidth(); x++)
 			{
@@ -102,11 +103,7 @@ namespace Graphics
 				// stepping further below works. So the values can be computed as below.
 				//  Division through zero is prevented, even though technically that's not
 				//  needed in C++ with IEEE 754 floating point values.
-				Vector2f deltaDist =
-				{
-					(ray.X == 0) ? 1e30 : std::abs(1 / ray.X),
-					(ray.Y == 0) ? 1e30 : std::abs(1 / ray.Y)
-				};
+				Vector2f deltaDist = { std::abs(1 / ray.X), std::abs(1 / ray.Y) };
 
 				float perpWallDist;
 
@@ -179,7 +176,7 @@ namespace Graphics
 				if (drawStart < 0)
 					drawStart = 0;
 				int drawEnd = lineHeight / 2 + frame.GetHeight() / 2;
-				if (drawEnd >= frame.GetHeight())
+				if (drawEnd >= (int)frame.GetHeight())
 					drawEnd = frame.GetHeight() - 1;
 
 				// choose wall color
