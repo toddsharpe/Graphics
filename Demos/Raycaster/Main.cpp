@@ -59,13 +59,13 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//Raycaster
 	Graphics::Raycaster<24, 24> raycaster(worldMap);
 
-	UI::DPad dpad = {};
-
 	//Run host
 	host.Start();
 	int FPS = 60;
 	while (host.IsRunning())
 	{
+		UI::DPad dpad = {};
+
 		//Dispatch host
 		host.Dispatch();
 		host.GetInput(dpad);
