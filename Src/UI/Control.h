@@ -6,19 +6,18 @@
 
 namespace UI
 {
-	using namespace Graphics;
-
 	class Control
 	{
 	public:
-		Control() : Foreground(Colors::Red), Background(Colors::White)
+		Control(const Graphics::Rectangle& bounds) : Bounds(bounds), Foreground(Graphics::Colors::Red), Background(Graphics::Colors::White)
 		{
 
 		}
 
-		virtual void Draw(FrameBuffer& frame) = 0;
+		virtual void Draw(Graphics::FrameBuffer& frame) = 0;
 
-		Color Foreground;
-		Color Background;
+		Graphics::Rectangle Bounds;
+		Graphics::Color Foreground;
+		Graphics::Color Background;
 	};
 }

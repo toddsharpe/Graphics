@@ -8,20 +8,20 @@
 
 namespace UI
 {
-	using namespace Graphics;
-
 	class ProgressBar : public Control
 	{
 	public:
-		ProgressBar(const std::string& text, const Rectangle& bounds) :
-			Control(),
-			Bounds(bounds),
+		ProgressBar(const std::string& text, const Graphics::Rectangle& bounds) :
+			Control(bounds),
+			Value(0),
+			MaxValue(10),
+			InactiveColor(Colors::White),
 			Text(text)
 		{
 
 		}
 
-		virtual void Draw(FrameBuffer& frame) override
+		virtual void Draw(Graphics::FrameBuffer& frame) override
 		{
 			const size_t activeWidth = Bounds.Width * Value / MaxValue;
 			const size_t inactiveWidth = Bounds.Width - activeWidth;
@@ -38,10 +38,9 @@ namespace UI
 			frame.DrawText({ Bounds.X, Bounds.Y + Bounds.Height + 5 }, Text.c_str(), Foreground);
 		}
 
-		Color InactiveColor;
 		size_t Value;
 		size_t MaxValue;
-		Rectangle Bounds;
+		Graphics::Color InactiveColor;
 		std::string Text;
 	};
 }

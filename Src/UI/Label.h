@@ -8,26 +8,22 @@
 
 namespace UI
 {
-	using namespace Graphics;
-
 	class Label : public Control
 	{
 	public:
-		Label(const std::string& text, const Rectangle& bounds) :
-			Control(),
-			Bounds(bounds),
+		Label(const std::string& text, const Graphics::Rectangle& bounds) :
+			Control(bounds),
 			Text(text)
 		{
 
 		}
 
-		virtual void Draw(FrameBuffer& frame) override
+		virtual void Draw(Graphics::FrameBuffer& frame) override
 		{
 			frame.DrawRectangle(Background, Bounds);
 			frame.DrawText({ Bounds.X + 5, Bounds.Y + 5 }, Text.c_str(), Foreground);
 		}
 
-		Rectangle Bounds;
 		std::string Text;
 	};
 }
