@@ -9,4 +9,7 @@ namespace UI
 		bool LeftPressed;
 		bool RightPressed;
 	};
+
+	//Time in milliseconds
+	typedef uint32_t milli_t;
 }

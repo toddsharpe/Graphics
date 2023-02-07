@@ -2,7 +2,7 @@
 
 #include "Graphics/Color.h"
 #include "Graphics/FrameBuffer.h"
-
+#include "Graphics/Types.h"
 
 namespace UI
 {
@@ -15,6 +15,7 @@ namespace UI
 		}
 
 		virtual void Draw(Graphics::FrameBuffer& frame) = 0;
+		virtual void Update(const milli_t deltaTime) = 0;
 
 		Graphics::Rectangle Bounds;
 		Graphics::Color Foreground;

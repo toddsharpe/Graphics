@@ -44,21 +44,25 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	//Run host
 	host.Start();
+	const int FPS = 10;
 	while (host.IsRunning())
 	{
 		//Dispatch host
 		host.Dispatch();
+		const UI::milli_t elapsed = 1000 / FPS;
 
 		//Update
 		progressBar.Value += 1;
 		if (progressBar.Value > progressBar.MaxValue)
 			progressBar.Value = 0;
+		window.Update(elapsed);
 
 		//Draw
 		window.Draw(frameBuffer);
 		host.DisplayBuffer();
 
-		Sleep(1000.0 / 10);
+		//Sleep
+		Sleep(elapsed);
 	}
 }
 

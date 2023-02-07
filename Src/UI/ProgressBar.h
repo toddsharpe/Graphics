@@ -38,6 +38,11 @@ namespace UI
 			frame.DrawText({ Bounds.X, Bounds.Y + Bounds.Height + 5 }, Text.c_str(), Foreground);
 		}
 
+		virtual void Update(const milli_t deltaTime) override
+		{
+			
+		}
+
 		size_t Value;
 		size_t MaxValue;
 		Graphics::Color InactiveColor;

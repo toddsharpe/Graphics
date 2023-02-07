@@ -42,6 +42,14 @@ namespace UI
 			}
 		}
 
+		void Update(const milli_t deltaTime)
+		{
+			for (const auto& child : Children)
+			{
+				child->Update(deltaTime);
+			}
+		}
+
 		Color Background;
 		std::vector<Control*> Children;
 

@@ -24,6 +24,11 @@ namespace UI
 			frame.DrawText({ Bounds.X + 5, Bounds.Y + 5 }, Text.c_str(), Foreground);
 		}
 
+		virtual void Update(const milli_t deltaTime) override
+		{
+			
+		}
+
 		std::string Text;
 	};
 }
