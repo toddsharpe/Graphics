@@ -52,6 +52,50 @@ namespace Graphics
 			}
 		}
 
+		void DrawPixel(const Color color, const Point2D position)
+		{
+			Assert(position.X < GetWidth());
+			Assert(position.Y < GetHeight());
+
+			Color* dst = GetBuffer() + position.Y * GetWidth() + position.X;
+			*dst = color;
+		}
+
+		// https://www.computerenhance.com/p/efficient-dda-circle-outlines
+		void DrawCircle(const Color color, const Point2D center, const size_t radius)
+		{
+			const size_t R2 = 2 * radius;
+			size_t X = radius;
+			size_t Y = 0;
+
+			int dY = -2;
+			int dX = R2+R2 - 4;
+			int D = R2 - 1;
+			
+			while(Y <= X)
+			{
+				DrawPixel(color, {center.Y - Y, center.X - X});
+				DrawPixel(color, {center.Y - Y, center.X + X});
+				DrawPixel(color, {center.Y + Y, center.X - X});
+				DrawPixel(color, {center.Y + Y, center.X + X});
+				DrawPixel(color, {center.Y - X, center.X - Y});
+				DrawPixel(color, {center.Y - X, center.X + Y});
+				DrawPixel(color, {center.Y + X, center.X - Y});
+				DrawPixel(color, {center.Y + X, center.X + Y});
+				
+				//Update
+				D += dY;
+				dY -= 4;
+				++Y;
+			
+				// NOTE(casey): Branchless version
+				int Mask = (D >> 31);
+				D += dX & Mask;
+				dX -= 4 & Mask;
+				X += Mask;
+			}
+		}
+
 		void DrawFrameBorder(const Color color, const size_t thickness)
 		{
 			//Top
