@@ -54,10 +54,13 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		if (progressBar.Value > progressBar.MaxValue)
 			progressBar.Value = 0;
 
-		//Draw
+		//Draw window
 		window.Draw(frameBuffer);
-		host.DisplayBuffer();
 
+		//Overlay a circle
+		frameBuffer.DrawCircle(Graphics::Colors::Green, { 100, 100 }, 50);
+
+		host.DisplayBuffer();
 		Sleep(1000.0 / 10);
 	}
 }
